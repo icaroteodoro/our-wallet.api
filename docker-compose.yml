@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    container_name: mysql8
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: our-wallet
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123
+    ports:
+      - '3306:3306'
+    volumes:
+      - './docker/db/data:/var/lib/mysql'
