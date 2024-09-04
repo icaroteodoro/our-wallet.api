@@ -24,7 +24,7 @@ public class User {
     private String email;
     private String password;
     private String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Wallet> wallets = new ArrayList<>();
 
     public void addWallet (Wallet wallet) {

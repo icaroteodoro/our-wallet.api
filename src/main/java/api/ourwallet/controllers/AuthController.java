@@ -33,11 +33,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO body) {
         User user = this.userRepository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
-        if(passwordEncoder.matches(user.getPassword(), body.password())) {
+        if(passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.generateToken(user);
             return ResponseEntity.ok(new LoginResponseDTO(user.getName(), token));
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/register")
@@ -51,8 +51,7 @@ public class AuthController {
 
             Wallet wallet = new Wallet();
             wallet.setBalance(0.0);
-            Wallet newWallet = this.walletRepository.save(new Wallet());
-
+            Wallet newWallet = this.walletRepository.save(wallet);
             newUser.addWallet(newWallet);
             this.userRepository.save(newUser);
 

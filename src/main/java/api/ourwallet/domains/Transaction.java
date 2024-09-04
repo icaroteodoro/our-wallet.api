@@ -22,6 +22,6 @@ public class Transaction {
     private Double value;
     private String type;
     private LocalDateTime createdAt;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Wallet wallet;
 }

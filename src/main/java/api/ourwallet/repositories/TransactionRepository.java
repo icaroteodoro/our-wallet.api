@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
     Optional<List<Transaction>> findTransactionsByWallet(Wallet wallet);
+    void deleteTransactionsByWallet(Wallet wallet);
 }

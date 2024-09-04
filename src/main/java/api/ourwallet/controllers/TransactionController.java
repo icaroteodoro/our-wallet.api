@@ -25,19 +25,20 @@ public class TransactionController {
     public ResponseEntity<Transaction> setTransaction(@RequestBody TransactionRequestDTO body, @PathVariable String id) {
         try{
             Wallet wallet = this.walletRepository.findById(id).orElseThrow(() -> new RuntimeException("Wallet not found"));
-            Double newBalance = 0.0;
+            double newBalance = 0.0;
             if(body.type().equals("saque")){
                 newBalance = wallet.getBalance() - body.value();
             } else{
                 newBalance = wallet.getBalance() + body.value();
             }
             wallet.setBalance(newBalance);
-            this.walletRepository.save(wallet);
+            Wallet walletUpdated = this.walletRepository.save(wallet);
             Transaction newTransaction = new Transaction();
             newTransaction.setValue(body.value());
             newTransaction.setType(body.type());
             newTransaction.setWallet(wallet);
             newTransaction.setCreatedAt(LocalDateTime.now());
+            newTransaction.setWallet(walletUpdated);
             this.transactionRepository.save(newTransaction);
             return ResponseEntity.ok().build();
         }catch(Exception e) {
