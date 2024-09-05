@@ -1,6 +1,7 @@
 package api.ourwallet.domains;
 
 
+import api.ourwallet.dtos.RegisterRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +32,10 @@ public class User {
         this.wallets.add(wallet);
     }
 
+
+    public User(RegisterRequestDTO body) {
+        this.setName(body.name());
+        this.setEmail(body.email());
+        this.setPassword(body.password());
+    }
 }
