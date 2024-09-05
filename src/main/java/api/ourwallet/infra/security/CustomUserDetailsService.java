@@ -1,4 +1,4 @@
-package api.ourwallet.infra.secutiry;
+package api.ourwallet.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
