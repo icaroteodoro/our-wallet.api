@@ -25,12 +25,23 @@ public class User {
     private String email;
     private String password;
     private String name;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Wallet> wallets = new ArrayList<>();
 
     public void addWallet (Wallet wallet) {
         this.wallets.add(wallet);
     }
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Category> categories = new ArrayList<>();
+
+    public void addCategory (Category category) {
+        this.categories.add(category);
+    }
+
+
 
 
     public User(RegisterRequestDTO body) {

@@ -2,6 +2,7 @@ package api.ourwallet.services;
 
 import api.ourwallet.domains.User;
 import api.ourwallet.domains.Wallet;
+import api.ourwallet.repositories.CategoryRepository;
 import api.ourwallet.repositories.TransactionRepository;
 import api.ourwallet.repositories.UserRepository;
 import api.ourwallet.repositories.WalletRepository;
@@ -27,6 +28,9 @@ public class UserService {
     private TransactionRepository transactionRepository;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -46,6 +50,7 @@ public class UserService {
             wallet.setBalance(0.0);
             Wallet newWallet = this.walletRepository.save(wallet);
             newUser.addWallet(newWallet);
+            newUser.setCategories(this.categoryService.standardCategories());
             return this.userRepository.save(newUser);
         }
         throw new RuntimeException("Email already registered");
